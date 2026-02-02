@@ -1,0 +1,94 @@
+<!-- stream.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="csrf-token" content="">
+  <title>NDIS Security Monitor - Network Stream</title>
+
+  <link rel="stylesheet" href="static/css/stream.css"/>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"
+    crossorigin="anonymous"
+    defer>
+  </script>
+  <script src="static/js/stream.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <h1><span class="icon" aria-hidden="true">📡</span>Network Stream Monitor</h1>
+    <p class="subtitle">Real-time NDIS Packet Capture &amp; Analysis</p>
+
+    <div id="error-alert" class="error-alert" hidden></div>
+
+    <section class="interface-selection" id="interface-selection">
+      <h3>🔌 Select Network Interface</h3>
+      <div id="interface-list" class="loading-interfaces">Loading available interfaces...</div>
+      <div class="selected-wrap">
+        <span class="selected-label">Selected:</span>
+        <span id="selected-interface" class="selected-value">None</span>
+      </div>
+    </section>
+
+    <div id="status" class="status stopped">
+      <span class="icon" aria-hidden="true">⏸️</span>Stream Stopped
+    </div>
+
+    <div class="controls">
+      <button id="start-btn" class="btn btn-success" disabled>
+        <span class="icon" aria-hidden="true">▶️</span>Start Network Stream
+      </button>
+      <button id="stop-btn" class="btn btn-danger" disabled>
+        <span class="icon" aria-hidden="true">⏹️</span>Stop &amp; Analyze
+      </button>
+      <button id="analyze-pcap-btn" class="btn btn-info" hidden>
+        <span class="icon" aria-hidden="true">🔍</span>Analyze Saved Capture
+      </button>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Packets</div>
+        <div class="stat-value" id="stat-total">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Packets/Sec</div>
+        <div class="stat-value" id="stat-pps">0<span class="stat-unit">pps</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Bandwidth</div>
+        <div class="stat-value" id="stat-bandwidth">0<span class="stat-unit">Mbps</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Elapsed Time</div>
+        <div class="stat-value" id="stat-time">0<span class="stat-unit">s</span></div>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <canvas id="streamChart" aria-label="Bandwidth and packets per second chart"></canvas>
+    </div>
+
+    <section id="analysis-result" class="analysis-result" hidden>
+      <h3>📊 Network Capture Analysis Results</h3>
+      <div id="analysis-grid" class="analysis-grid"></div>
+    </section>
+
+    <div class="detect-controls">
+      <button id="detect-now-btn" class="btn btn-info" disabled>
+        <span class="icon" aria-hidden="true">🧠</span>Run Detection Now
+      </button>
+      <button id="download-report-stream-btn" class="btn btn-primary" hidden aria-hidden="true" aria-label="Download PDF report from latest stream detection">
+        <span class="icon" aria-hidden="true">📄</span>Download Report (PDF)
+      </button>
+    </div>
+
+    <section id="detections" class="analysis-result accent-purple" hidden>
+      <h3>🧭 Detection Results (MITRE ATT&amp;CK)</h3>
+      <div id="detections-content" class="analysis-grid"></div>
+    </section>
+  </div>
+</body>
+</html>

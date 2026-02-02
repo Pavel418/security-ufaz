@@ -1,0 +1,85 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="csrf-token" content="">
+  <title>NDIS Security Monitor - Home</title>
+  <link rel="stylesheet" href="static/css/styles.css"/>
+</head>
+<body>
+  <div class="container" role="application" aria-label="NDIS Security Monitor Home">
+    <h1><span class="icon" aria-hidden="true">🛡️</span>NDIS Security Monitor</h1>
+    <p class="subtitle">Network Driver Interface Specification Analysis Tool</p>
+
+    <div class="stack">
+      <div class="file-input-wrapper">
+        <input id="file-upload" class="file-hidden" type="file" accept=".txt,.log,.csv,.json,.pcap,.pcapng" />
+        <label for="file-upload" class="dropzone" id="dropzone" tabindex="0" aria-describedby="drop-help">
+          <div>
+            <button type="button" class="btn btn-primary" aria-label="Choose file to upload">
+              <span class="icon" aria-hidden="true">📁</span>Select or Drop File
+            </button>
+          </div>
+          <small id="drop-help" class="drop-help">Formats: .txt .log .csv .json .pcap .pcapng</small>
+        </label>
+        <div id="file-name" class="file-name" aria-live="polite"></div>
+      </div>
+
+      <div class="row">
+        <button id="analyze-btn" class="btn btn-success" disabled aria-disabled="true">
+          <span class="icon" aria-hidden="true">🔍</span>Analyze File
+        </button>
+        <a href="/stream" class="btn btn-info" aria-label="Switch to Stream Mode">
+          <span class="icon" aria-hidden="true">📡</span>Stream Mode
+        </a>
+      </div>
+
+      <div class="row">
+        <button id="download-report-btn" class="btn btn-primary" hidden aria-hidden="true" aria-label="Download PDF report">
+          <span class="icon" aria-hidden="true">📄</span>Download Report (PDF)
+        </button>
+      </div>
+
+      <div id="message" class="message" role="status" aria-live="polite" hidden></div>
+
+      <section id="analysis-result" class="analysis-result" aria-live="polite" hidden>
+        <h3>Detection Results</h3>
+
+        <div class="analysis-grid analysis-metrics" aria-label="Summary metrics">
+          <div class="analysis-item">
+            <div class="analysis-label">PCAP File</div>
+            <div id="metric-file" class="analysis-value"></div>
+          </div>
+          <div class="analysis-item">
+            <div class="analysis-label">Flow Groups</div>
+            <div id="metric-groups" class="analysis-value"></div>
+          </div>
+          <div class="analysis-item">
+            <div class="analysis-label">Scan Summaries</div>
+            <div id="metric-scans" class="analysis-value"></div>
+          </div>
+          <div class="analysis-item">
+            <div class="analysis-label">Packets Processed</div>
+            <div id="metric-packets" class="analysis-value"></div>
+          </div>
+          <div class="analysis-item">
+            <div class="analysis-label">Groups Emitted</div>
+            <div id="metric-emitted" class="analysis-value"></div>
+          </div>
+          <div class="analysis-item">
+            <div class="analysis-label">HTTP Enriched</div>
+            <div id="metric-enriched" class="analysis-value"></div>
+          </div>
+        </div>
+
+        <h4 class="attack-heading">ATT&CK Findings</h4>
+        <div id="attack-cards" class="analysis-grid" aria-label="ATT&CK detection cards"></div>
+      </section>
+    </div>
+  </div>
+
+  <script src="static/js/home.js" defer></script>
+</body>
+</html>
